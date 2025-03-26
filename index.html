@@ -16,6 +16,12 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li class="auth-links">
+                    <a href="login.html" id="loginLink"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="signup.html" id="signupLink"><i class="fas fa-user-plus"></i> Sign Up</a>
+                    <a href="#" id="userProfileLink" style="display: none;"><i class="fas fa-user-circle"></i> <span id="userName">User</span></a>
+                    <a href="#" id="logoutLink" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -23,7 +29,7 @@
         <header>
             <h1>Discover Your Perfect Career Path</h1>
             <p class="tagline">AI-powered guidance for your professional journey</p>
-            <a href="#" class="cta-button">Start Your Journey</a>
+            <a href="signup.html" class="cta-button">Start Your Journey</a>
         </header>
         <section id="about">
             <h2>About Pathway.Ai</h2>
@@ -52,11 +58,45 @@
         <section id="contact">
             <h2>Ready to Shape Your Future?</h2>
             <p>Join pathway.ai today and take the first step towards a fulfilling career.</p>
-            <a href="#" class="cta-button">Get Started Now</a>
+            <a href="signup.html" class="cta-button">Get Started Now</a>
         </section>
     </div>
     <footer>
         <p>&copy; 2025 pathway.ai. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const signupLink = document.getElementById('signupLink');
+            const userProfileLink = document.getElementById('userProfileLink');
+            const logoutLink = document.getElementById('logoutLink');
+            const userName = document.getElementById('userName');
+            
+            if (currentUser) {
+                // User is logged in
+                loginLink.style.display = 'none';
+                signupLink.style.display = 'none';
+                userProfileLink.style.display = 'inline-block';
+                logoutLink.style.display = 'inline-block';
+                
+                // Display user name
+                if (currentUser.name) {
+                    userName.textContent = currentUser.name;
+                } else {
+                    userName.textContent = currentUser.email;
+                }
+            }
+            
+            // Logout functionality
+            logoutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                window.location.reload();
+            });
+        });
+    </script>
 </body>
 </html>
